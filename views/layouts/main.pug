@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+        <script src="https://kit.fontawesome.com/f983e24f7c.js" crossorigin="anonymous"></script>
+        title #{pageTitle} | #{siteName}
+        link(rel="stylesheet", href="/static/style.css")
+    body
+        include ../partials/header
+        main
+            block content
+        include ../partials/footer
+        script(src="/static/main.js")

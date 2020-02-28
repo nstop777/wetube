@@ -108,3 +108,6 @@ dist
 
 # 패키지 보안 정보
 package-lock.json
+
+# 업로드 영상
+uploads
