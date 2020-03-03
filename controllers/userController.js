@@ -17,7 +17,7 @@ export const postJoin = async (req, res, next) => {
     res.render("join", { pageTitle: "Join" });
   } else {
     try {
-      const user = await User({
+      const user = await User.create({
         name,
         email
       });
@@ -34,10 +34,27 @@ export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
 };
 
-export const postLogin = passport.authenticate("local", {
-  failureRedirect: routes.login,
-  successRedirect: routes.home
-});
+// export const postLogin = passport.authenticate("local", {
+//   failureRedirect: routes.login,
+//   successRedirect: routes.home
+// });
+
+export const postLogin = (res, req, next) => {
+  passport.authenticate("local", (authError, user, info) => {
+    if (Error) {
+      return next(Error);
+    }
+    if (!user) {
+      return res.redirect(routes.login);
+    }
+    req.logIn(user, Error => {
+      if (Error) {
+        return next(Error);
+      }
+      return res.redirect(routes.home);
+    });
+  })(req, res, next);
+};
 
 export const githubLogin = passport.authenticate("github");
 
